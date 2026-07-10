@@ -15,19 +15,41 @@ Teams repeatedly build internal hardware registries. This rebuilds the same foun
 ## Quick Start
 
 1.  **Fork this repository.** This is now your owned copy.
-2.  Use the schemas. Deploy the `schemas/` folder to a static host or import the TypeScript types directly.
-3.  Add your own hardware profiles and compatibility rules.
+2.  Use the schemas directly. The catalog is plain JSON Schema (Draft 2020-12)
+    plus pure TypeScript — no build step is required to read it:
+    *   `schemas/equipment.schema.json` — the profile schema.
+    *   `schemas/equipment/*.json` — one profile per supported device.
+    *   `src/compatibility.ts` — `checkCompatibility(requirements, profile)` for
+        validating an agent's requirements against a profile.
+3.  Validate profiles and run the example checks (Node.js required):
+    ```bash
+    npm install
+    npm test     # ts-node: validates every profile + runs compatibility cases
+    npm run build  # optional: type-check / emit to dist/
+    ```
+4.  Add your own hardware profiles under `schemas/equipment/` and your own
+    compatibility rules in `src/`.
 
-**Live Reference Catalog:**  
-[https://the-fleet.casey-digennaro.workers.dev/catalog](https://the-fleet.casey-digennaro.workers.dev/catalog) (Hosted on Cloudflare Workers)
+> 🔮 **Planned: hosted reference catalog.** A read-only, hosted mirror of this
+> catalog was previously linked here, but it is **not currently deployed**
+> (the old URL returns HTTP 404). Treat the repository above as the source of
+> truth for now; a hosted mirror may return later.
 
 ---
 
 ## What's Inside
 
-*   **Typed Definitions:** Structured profiles for 50+ common edge device models (e.g., Raspberry Pi, Jetson, industrial gateways).
-*   **Compatibility Checks:** Machine-readable rules to validate if an agent's requirements match a device's capabilities before deployment.
-*   **Zero Dependencies:** Pure JSON Schema and TypeScript. No runtime services, daemons, or lock-in.
+*   **Typed Definitions:** Structured profiles for edge device models. The base
+    catalog currently ships **5** profiles — Raspberry Pi 4 Model B, Raspberry
+    Pi 5, NVIDIA Jetson Orin Nano, NVIDIA Jetson AGX Orin, and BeagleBone Black
+    — each validating against `schemas/equipment.schema.json`.
+*   **Compatibility Checks:** `checkCompatibility()` in `src/compatibility.ts`
+    validates whether an agent's requirements (minimum RAM, CPU cores/arch,
+    required GPU/AI accelerator, USB port count/revision, storage interface,
+    supported image) match a device's capabilities before deployment.
+*   **Zero Runtime Dependencies:** The schema is pure JSON Schema and the
+    compatibility checker is pure TypeScript with no runtime dependencies.
+    Dev/test tooling (ajv, TypeScript, ts-node) is optional and dev-only.
 *   **Fork-First Workflow:** You control your catalog. Modify it freely and pull upstream updates when you choose.
 
 ---
