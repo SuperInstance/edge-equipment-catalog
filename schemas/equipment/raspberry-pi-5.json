@@ -1,0 +1,43 @@
+{
+  "deviceId": "raspberry-pi-5",
+  "manufacturer": "Raspberry Pi Foundation",
+  "modelName": "Raspberry Pi 5",
+  "releaseYear": 2023,
+  "cpu": {
+    "cores": 4,
+    "architecture": "aarch64",
+    "maxClockMhz": 2400,
+    "model": "Broadcom BCM2712, Arm Cortex-A76 (ARMv8-A, 64-bit)"
+  },
+  "memoryMb": 8192,
+  "memoryVariantsMb": [4096, 8192],
+  "gpu": {
+    "present": true,
+    "model": "Broadcom VideoCore VII (graphics only; not an AI accelerator)"
+  },
+  "usb": {
+    "ports": [
+      { "version": 3, "count": 2 },
+      { "version": 2, "count": 2 }
+    ]
+  },
+  "storage": {
+    "interfaces": ["microsd", "nvme-m2"],
+    "details": "microSD primary; a single-lane PCIe 2.0 interface is exposed and supports NVMe SSDs via the official M.2 HAT+."
+  },
+  "power": {
+    "voltageV": 5,
+    "maxDrawW": 27,
+    "connector": "USB-C (official 27W PSU 5V/5A)"
+  },
+  "supportedImages": [
+    "Raspberry Pi OS (Bookworm, 64-bit)",
+    "Ubuntu 24.04 LTS (arm64)"
+  ],
+  "firmwareCompatibility": {
+    "minFirmware": "BCM2712 bootloader EEPROM",
+    "maxFirmware": "Bootloader EEPROM (current Raspberry Pi OS release)",
+    "notes": "A newer EEPROM than Pi 4 is required; Pi 5 no longer carries the legacy bootcode."
+  },
+  "_notes": "memoryMb uses the 8GB configuration as the representative value; 4GB variant also sold. The official 27W (5V/5A) PSU rating is authoritative; typical under-load draw is workload-dependent and not stated precisely. CPU 2.4GHz and USB/PCIe details are from Raspberry Pi Foundation documentation."
+}

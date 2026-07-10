@@ -1,0 +1,41 @@
+{
+  "deviceId": "beaglebone-black",
+  "manufacturer": "BeagleBoard.org Foundation",
+  "modelName": "BeagleBone Black",
+  "releaseYear": 2013,
+  "cpu": {
+    "cores": 1,
+    "architecture": "armv7l",
+    "maxClockMhz": 1000,
+    "model": "Texas Instruments Sitara AM3358/9, Arm Cortex-A8 (ARMv7-A, 32-bit)"
+  },
+  "memoryMb": 512,
+  "gpu": {
+    "present": true,
+    "model": "PowerVR SGX530 (graphics only; no AI accelerator, driver support is limited)"
+  },
+  "usb": {
+    "ports": [
+      { "version": 2, "count": 2 }
+    ]
+  },
+  "storage": {
+    "interfaces": ["emmc", "microsd"],
+    "details": "On-board eMMC (2GB on early revisions, 4GB on Rev C and later) plus a microSD slot."
+  },
+  "power": {
+    "voltageV": 5,
+    "typicalDrawW": 2,
+    "maxDrawW": 2.5,
+    "connector": "DC barrel jack (5V) or USB mini-B client"
+  },
+  "supportedImages": [
+    "BeagleBoard.org Debian image (console and desktop)",
+    "Ubuntu (armhf, community)"
+  ],
+  "firmwareCompatibility": {
+    "minFirmware": "AM335x boot ROM + U-Boot (factory)",
+    "notes": "Boots via the on-chip AM335x ROM and U-Boot on eMMC/microSD; firmware is updated by reflashing the MLO/u-boot images rather than a dedicated EEPROM."
+  },
+  "_notes": "Single-core 1GHz Cortex-A8, 512MB DDR3 and 2x USB 2.0 (one host, one client) are well-established System Reference Manual figures. typicalDrawW=2 is an approximation; BeagleBoard.org cites typical current in the low hundreds of milliamps (~1-2.3W) at 5V, workload-dependent. eMMC size depends on board revision (2GB vs 4GB Rev C)."
+}
