@@ -72,6 +72,23 @@ Add your equipment profiles under `schemas/equipment/` in your fork. You can pul
 
 ---
 
+## Related Repos
+
+This catalog is one piece of the SuperInstance / Cocapn edge stack. Siblings
+that consume or overlap this hardware-capability data:
+
+- **[Edge-Native](https://github.com/SuperInstance/Edge-Native)** — the ESP32
+  firmware VM and Jetson bytecode layer that run on exactly the device classes
+  profiled here; its deployment targets are what these profiles describe.
+- **[nexus-edge-runtime](https://github.com/SuperInstance/nexus-edge-runtime)**
+  — a Python edge bytecode runtime; its deployable target hardware can be
+  validated against `checkCompatibility()` before flashing.
+- **[marine-gpu-edge](https://github.com/SuperInstance/marine-gpu-edge)** —
+  targets the NVIDIA Jetson family (two of the five profiles here) for marine
+  GPU compute, so its GPU/thermal capability assumptions overlap this catalog.
+- **[edge-relay-agent](https://github.com/SuperInstance/edge-relay-agent)** —
+  a relay/discovery/bandwidth agent that runs on this class of edge hardware.
+
 ## Contributing
 
 Corrections and additions for widely-used public hardware are welcome. Please open an issue to discuss significant changes.
