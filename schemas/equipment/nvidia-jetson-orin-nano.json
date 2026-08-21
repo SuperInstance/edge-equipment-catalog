@@ -1,0 +1,47 @@
+{
+  "deviceId": "nvidia-jetson-orin-nano",
+  "manufacturer": "NVIDIA",
+  "modelName": "NVIDIA Jetson Orin Nano (Developer Kit)",
+  "releaseYear": 2023,
+  "cpu": {
+    "cores": 6,
+    "architecture": "aarch64",
+    "maxClockMhz": 1700,
+    "model": "Arm Cortex-A78AE (64-bit)"
+  },
+  "memoryMb": 8192,
+  "memoryVariantsMb": [4096, 8192],
+  "gpu": {
+    "present": true,
+    "model": "NVIDIA Ampere GPU",
+    "cudaCores": 1024,
+    "tensorCores": 32,
+    "aiTops": 40
+  },
+  "usb": {
+    "ports": [
+      { "version": 3, "count": 3 },
+      { "version": 2, "count": 2 }
+    ]
+  },
+  "storage": {
+    "interfaces": ["nvme-m2", "microsd"],
+    "details": "M.2 Key M slot for NVMe SSD (PCIe Gen3 x4) is the primary boot device on the developer kit; microSD also present."
+  },
+  "power": {
+    "voltageV": 19,
+    "typicalDrawW": 15,
+    "maxDrawW": 25,
+    "connector": "DC barrel jack (9-20V; ships with a 19V adapter)"
+  },
+  "supportedImages": [
+    "NVIDIA JetPack 5.x (L4T, Ubuntu 20.04 based)",
+    "NVIDIA JetPack 6.x (L4T, Ubuntu 22.04 based)"
+  ],
+  "firmwareCompatibility": {
+    "minFirmware": "JetPack 5.x / L4T 35.x",
+    "maxFirmware": "JetPack 6.x / L4T 36.x",
+    "notes": "JetPack version dictates the supported CUDA/TensorRT stack and kernel."
+  },
+  "_notes": "aiTops=40 is NVIDIA's stated INT8 figure for the Orin Nano 8GB module (with sparse Tensor Cores). typicalDrawW=15 is an approximation within the documented 7W-25W configurable power-mode range; exact draw is mode- and workload-dependent. USB port counts reflect the NVIDIA developer-kit carrier board and are not guaranteed for third-party carriers."
+}

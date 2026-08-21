@@ -1,0 +1,44 @@
+{
+  "deviceId": "raspberry-pi-4-model-b",
+  "manufacturer": "Raspberry Pi Foundation",
+  "modelName": "Raspberry Pi 4 Model B",
+  "releaseYear": 2019,
+  "cpu": {
+    "cores": 4,
+    "architecture": "aarch64",
+    "maxClockMhz": 1500,
+    "model": "Broadcom BCM2711, Arm Cortex-A72 (ARMv8-A, 64-bit capable)"
+  },
+  "memoryMb": 4096,
+  "memoryVariantsMb": [1024, 2048, 4096, 8192],
+  "gpu": {
+    "present": true,
+    "model": "Broadcom VideoCore VI (graphics only; not an AI accelerator)"
+  },
+  "usb": {
+    "ports": [
+      { "version": 3, "count": 2 },
+      { "version": 2, "count": 2 }
+    ]
+  },
+  "storage": {
+    "interfaces": ["microsd", "usb"],
+    "details": "Boots from microSD by default; USB mass-storage boot enabled in later bootloader EEPROM revisions."
+  },
+  "power": {
+    "voltageV": 5,
+    "maxDrawW": 15,
+    "connector": "USB-C (official PSU 5V/3A)"
+  },
+  "supportedImages": [
+    "Raspberry Pi OS (Bullseye/Bookworm, 32-bit and 64-bit)",
+    "Ubuntu 20.04 LTS (arm64)",
+    "Ubuntu 22.04 LTS (arm64)"
+  ],
+  "firmwareCompatibility": {
+    "minFirmware": "BCM2711 boot ROM + bootloader EEPROM",
+    "maxFirmware": "Bootloader EEPROM (current Raspberry Pi OS release)",
+    "notes": "USB/Network boot requires a sufficiently recent EEPROM image; older 2019 EEPROMs only support SD boot."
+  },
+  "_notes": "memoryMb uses the 4GB configuration as the representative value; memoryVariantsMb lists all factory SKUs. The official PSU is rated 5V/3A (15W); typical under-load draw is workload-dependent and not stated precisely here. USB port counts and CPU clock (1.5GHz) are from Raspberry Pi Foundation documentation."
+}

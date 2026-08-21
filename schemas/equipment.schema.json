@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/casey-digennaro/edge-equipment-catalog/schemas/equipment.schema.json",
+  "title": "Edge Equipment Profile",
+  "description": "Machine-readable profile of an edge device's hardware capabilities, used to validate whether an agent's deployment requirements can be satisfied by a given device.",
+  "type": "object",
+  "required": [
+    "deviceId",
+    "manufacturer",
+    "modelName",
+    "cpu",
+    "memoryMb",
+    "storage",
+    "supportedImages"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "deviceId": {
+      "type": "string",
+      "description": "Stable, lowercase kebab-case identifier for this device model.",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "minLength": 2
+    },
+    "manufacturer": { "type": "string", "minLength": 1 },
+    "modelName": { "type": "string", "minLength": 1 },
+    "releaseYear": { "type": "integer", "minimum": 1990, "maximum": 2100 },
+
+    "cpu": {
+      "type": "object",
+      "required": ["cores", "architecture"],
+      "additionalProperties": false,
+      "properties": {
+        "cores": { "type": "integer", "minimum": 1 },
+        "architecture": {
+          "type": "string",
+          "description": "Instruction set architecture / ABI, e.g. aarch64, armv7l, x86_64."
+        },
+        "maxClockMhz": { "type": "number", "minimum": 0 },
+        "model": { "type": "string" }
+      }
+    },
+
+    "memoryMb": {
+      "type": "integer",
+      "description": "Representative/primary on-board RAM in megabytes.",
+      "minimum": 1
+    },
+    "memoryVariantsMb": {
+      "type": "array",
+      "description": "All RAM variants the model is sold in, if more than one exists.",
+      "items": { "type": "integer", "minimum": 1 },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+
+    "gpu": {
+      "type": "object",
+      "required": ["present"],
+      "additionalProperties": false,
+      "properties": {
+        "present": {
+          "type": "boolean",
+          "description": "Whether any GPU or AI accelerator is present on the device."
+        },
+        "model": { "type": "string" },
+        "cudaCores": { "type": "integer", "minimum": 0 },
+        "tensorCores": { "type": "integer", "minimum": 0 },
+        "aiTops": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Peak AI inference throughput in TOPS (INT8), per vendor rating."
+        }
+      }
+    },
+
+    "usb": {
+      "type": "object",
+      "required": ["ports"],
+      "additionalProperties": false,
+      "properties": {
+        "ports": {
+          "type": "array",
+          "description": "USB port groups, one entry per USB standard revision present.",
+          "items": {
+            "type": "object",
+            "required": ["version", "count"],
+            "additionalProperties": false,
+            "properties": {
+              "version": { "type": "number", "enum": [1, 1.1, 2, 3] },
+              "count": { "type": "integer", "minimum": 0 }
+            }
+          }
+        }
+      }
+    },
+
+    "storage": {
+      "type": "object",
+      "required": ["interfaces"],
+      "additionalProperties": false,
+      "properties": {
+        "interfaces": {
+          "type": "array",
+          "description": "Storage interfaces available on the device.",
+          "items": {
+            "enum": ["microsd", "sd", "emmc", "nvme-m2", "sata", "usb"]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "details": { "type": "string" }
+      }
+    },
+
+    "power": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "voltageV": { "type": "number", "minimum": 0 },
+        "typicalDrawW": { "type": "number", "minimum": 0 },
+        "maxDrawW": { "type": "number", "minimum": 0 },
+        "connector": { "type": "string" }
+      }
+    },
+
+    "supportedImages": {
+      "type": "array",
+      "description": "OS images / distributions known to boot on this device.",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+
+    "firmwareCompatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "minFirmware": { "type": "string" },
+        "maxFirmware": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+
+    "_notes": {
+      "type": "string",
+      "description": "Free-text source / uncertainty notes. Not used for compatibility checks."
+    }
+  }
+}
